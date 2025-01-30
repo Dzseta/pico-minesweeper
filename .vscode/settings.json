@@ -1,0 +1,66 @@
+{
+    "cmake.options.statusBarVisibility": "hidden",
+    "cmake.options.advanced": {
+        "build": {
+            "statusBarVisibility": "hidden"
+        },
+        "launch": {
+            "statusBarVisibility": "hidden"
+        },
+        "debug": {
+            "statusBarVisibility": "hidden"
+        }
+    },
+    "cmake.configureOnEdit": false,
+    "cmake.automaticReconfigure": false,
+    "cmake.configureOnOpen": false,
+    "cmake.generator": "Ninja",
+    "cmake.cmakePath": "${userHome}/.pico-sdk/cmake/v3.29.9/bin/cmake",
+    "C_Cpp.debugShortcut": false,
+    "terminal.integrated.env.windows": {
+        "PICO_SDK_PATH": "${env:USERPROFILE}/.pico-sdk/sdk/2.1.0",
+        "PICO_TOOLCHAIN_PATH": "${env:USERPROFILE}/.pico-sdk/toolchain/13_3_Rel1",
+        "Path": "${env:USERPROFILE}/.pico-sdk/toolchain/13_3_Rel1/bin;${env:USERPROFILE}/.pico-sdk/picotool/2.0.0/picotool;${env:USERPROFILE}/.pico-sdk/cmake/v3.29.9/bin;${env:USERPROFILE}/.pico-sdk/ninja/v1.12.1;${env:PATH}"
+    },
+    "terminal.integrated.env.osx": {
+        "PICO_SDK_PATH": "${env:HOME}/.pico-sdk/sdk/2.1.0",
+        "PICO_TOOLCHAIN_PATH": "${env:HOME}/.pico-sdk/toolchain/13_3_Rel1",
+        "PATH": "${env:HOME}/.pico-sdk/toolchain/13_3_Rel1/bin:${env:HOME}/.pico-sdk/picotool/2.0.0/picotool:${env:HOME}/.pico-sdk/cmake/v3.29.9/bin:${env:HOME}/.pico-sdk/ninja/v1.12.1:${env:PATH}"
+    },
+    "terminal.integrated.env.linux": {
+        "PICO_SDK_PATH": "${env:HOME}/.pico-sdk/sdk/2.1.0",
+        "PICO_TOOLCHAIN_PATH": "${env:HOME}/.pico-sdk/toolchain/13_3_Rel1",
+        "PATH": "${env:HOME}/.pico-sdk/toolchain/13_3_Rel1/bin:${env:HOME}/.pico-sdk/picotool/2.0.0/picotool:${env:HOME}/.pico-sdk/cmake/v3.29.9/bin:${env:HOME}/.pico-sdk/ninja/v1.12.1:${env:PATH}"
+    },
+    "raspberry-pi-pico.cmakeAutoConfigure": true,
+    "raspberry-pi-pico.useCmakeTools": false,
+    "raspberry-pi-pico.cmakePath": "${HOME}/.pico-sdk/cmake/v3.29.9/bin/cmake",
+    "raspberry-pi-pico.ninjaPath": "${HOME}/.pico-sdk/ninja/v1.12.1/ninja",
+    "files.associations": {
+        "*.g4": "java",
+        "fps.h": "c",
+        "font6x9.h": "c",
+        "wolf_idle_bitmap.h": "c",
+        "time.h": "c",
+        "stdio.h": "c",
+        "string.h": "c",
+        "hagl_hal.h": "c",
+        "bitmap_wolf_idle.h": "c",
+        "cstdint": "cpp",
+        "bitmap_icons.h": "c",
+        "cwchar": "c",
+        "bitmap_menu.h": "c",
+        "cstddef": "cpp",
+        "katana_ashigaru.h": "c",
+        "stdlib.h": "c",
+        "halberd_samurai.h": "c",
+        "naginata_samurai.h": "c",
+        "bitmap_halberd_samurai.h": "c",
+        "bitmap_naginata_samurai.h": "c",
+        "gpio.h": "c",
+        "clocks.h": "c",
+        "buttons.h": "c",
+        "hagl.h": "c"
+    },
+    "C_Cpp.errorSquiggles": "enabled"
+}
