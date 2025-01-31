@@ -19,7 +19,6 @@
 // fps counter
 volatile bool fps_flag = false;
 static fps_instance_t fps;
-static const uint64_t US_PER_FRAME_60_FPS = 1000000 / 60;
 static const uint64_t US_PER_FRAME_30_FPS = 1000000 / 30;
 
 // message
@@ -60,7 +59,13 @@ void reveal_neighboor(int pos_x, int pos_y) {
             hagl_draw_rectangle_xywh(display, i*20, j*20, 20, 20, color_black);
             if(board[i][j] > 0) {
                 swprintf(text, sizeof(text), L"%u", board[i][j]);
-                hagl_put_text(display, text, i*20+7, j*20+5, color_yellow, font6x9);
+                if(board[i][j] <= 2) {
+                    hagl_put_text(display, text, i*20+7, j*20+5, color_lightgreen, font6x9);
+                } else if(board[i][j] <= 4) {
+                    hagl_put_text(display, text, i*20+7, j*20+5, color_yellow, font6x9);
+                } else {
+                    hagl_put_text(display, text, i*20+7, j*20+5, color_lightorange, font6x9);
+                }
             } else if (board[i][j] == 0) {
                 reveal_neighboor(i, j);
             }
@@ -177,7 +182,13 @@ int main() {
                         hagl_draw_rectangle_xywh(display, cursor_x*20, cursor_y*20, 20, 20, color_black);
                         if(board[cursor_x][cursor_y] > 0) {
                             swprintf(text, sizeof(text), L"%u", board[cursor_x][cursor_y]);
-                            hagl_put_text(display, text, cursor_x*20+7, cursor_y*20+5, color_yellow, font6x9);
+                            if(board[i][j] <= 2) {
+                                hagl_put_text(display, text, i*20+7, j*20+5, color_lightgreen, font6x9);
+                            } else if(board[i][j] <= 4) {
+                                hagl_put_text(display, text, i*20+7, j*20+5, color_yellow, font6x9);
+                            } else {
+                                hagl_put_text(display, text, i*20+7, j*20+5, color_lightorange, font6x9);
+                            }
                         } else {
                             reveal_neighboor(cursor_x, cursor_y);
                         }
@@ -252,7 +263,7 @@ int main() {
             //fps_update(&fps);
 
             // Cap to 60 fps
-            busy_wait_until(start + US_PER_FRAME_60_FPS);
+            busy_wait_until(start + US_PER_FRAME_30_FPS);
         }
 
         start = time_us_64();

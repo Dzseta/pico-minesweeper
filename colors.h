@@ -13,6 +13,7 @@ static const hagl_color_t color_lightgreen = 0x2407;
 static const hagl_color_t color_red = 0x00d8;
 static const hagl_color_t color_yellow = 0xa0fe;
 static const hagl_color_t color_darkgray = 0xcb5a;
+static const hagl_color_t color_lightorange = 0x80f5;
 static const hagl_color_t color_darkorange = 0x4241;
 
 #endif
