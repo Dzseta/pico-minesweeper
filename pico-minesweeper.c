@@ -12,9 +12,10 @@
 
 // Buttons
 #include "buttons.h"
-
 // Colors
 #include "colors.h"
+// Bitmaps
+#include "bitmap_icons.h"
 
 // fps counter
 volatile bool fps_flag = false;
@@ -32,6 +33,9 @@ static hagl_backend_t *display;
 // board
 int board[12][12];
 int showed[12][12];
+
+// enemy bitmap
+hagl_bitmap_t icon_bitmap;
 
 bool show_timer_callback(struct repeating_timer *t)
 {
@@ -89,6 +93,8 @@ int main() {
     add_repeating_timer_ms(250, show_timer_callback, NULL, &show_timer);
     // Init buttons
     buttons_init();
+    // Init bitmap
+    icon_bitmap.buffer = (uint8_t *) malloc(ICONS_WIDTH * ICONS_HEIGHT * sizeof(hagl_color_t));
 
     // VARIABLES
     // mines
@@ -130,7 +136,7 @@ int main() {
             do {
                 mine_x = rand() % 12;
                 mine_y = rand() % 12;
-            } while (board[mine_x][mine_y] < 0);
+            } while (board[mine_x][mine_y] < 0 || (mine_x == 0 && mine_y == 0));
             
             for(int i=mine_x-1; i<=mine_x+1; i++) {
                 for(int j=mine_y-1; j<=mine_y+1; j++) {
@@ -172,22 +178,22 @@ int main() {
                     if(showed[cursor_x][cursor_y] == 1 || showed[cursor_x][cursor_y] == 2) continue;
                     showed[cursor_x][cursor_y] = 1;
                     if(board[cursor_x][cursor_y] < 0) {
-                        hagl_fill_rectangle_xywh(display, cursor_x*20, cursor_y*20, 20, 20, color_red);
-                        hagl_draw_rectangle_xywh(display, cursor_x*20, cursor_y*20, 20, 20, color_black);
+                        hagl_bitmap_init(&icon_bitmap, ICONS_WIDTH, ICONS_HEIGHT, sizeof(hagl_color_t), &icon_mine);
+                        hagl_blit(display, cursor_x*20, cursor_y*20, &icon_bitmap);
                         end = true;
                         swprintf(text, sizeof(text), L"GAME OVER");
-                        hagl_put_text(display, text, 88, 120, color_red, font6x9);
+                        hagl_put_text(display, text, 93, 0, color_red, font6x9);
                     } else {
                         hagl_fill_rectangle_xywh(display, cursor_x*20, cursor_y*20, 20, 20, color_darkgray);
                         hagl_draw_rectangle_xywh(display, cursor_x*20, cursor_y*20, 20, 20, color_black);
                         if(board[cursor_x][cursor_y] > 0) {
                             swprintf(text, sizeof(text), L"%u", board[cursor_x][cursor_y]);
-                            if(board[i][j] <= 2) {
-                                hagl_put_text(display, text, i*20+7, j*20+5, color_lightgreen, font6x9);
-                            } else if(board[i][j] <= 4) {
-                                hagl_put_text(display, text, i*20+7, j*20+5, color_yellow, font6x9);
+                            if(board[cursor_x][cursor_y] <= 2) {
+                                hagl_put_text(display, text, cursor_x*20+7, cursor_y*20+5, color_lightgreen, font6x9);
+                            } else if(board[cursor_x][cursor_y] <= 4) {
+                                hagl_put_text(display, text, cursor_x*20+7, cursor_y*20+5, color_yellow, font6x9);
                             } else {
-                                hagl_put_text(display, text, i*20+7, j*20+5, color_lightorange, font6x9);
+                                hagl_put_text(display, text, cursor_x*20+7, cursor_y*20+5, color_lightorange, font6x9);
                             }
                         } else {
                             reveal_neighboor(cursor_x, cursor_y);
@@ -199,9 +205,11 @@ int main() {
                         if(showed[cursor_x][cursor_y] == 2) {
                             showed[cursor_x][cursor_y] = 0;
                             hagl_fill_rectangle_xywh(display, cursor_x*20, cursor_y*20, 20, 20, color_green);
+                            hagl_draw_rectangle_xywh(display, cursor_x*20, cursor_y*20, 20, 20, color_black);
                         } else if(showed[cursor_x][cursor_y] == 0) {
                             showed[cursor_x][cursor_y] = 2;
-                            hagl_fill_rectangle_xywh(display, cursor_x*20, cursor_y*20, 20, 20, color_yellow);
+                            hagl_bitmap_init(&icon_bitmap, ICONS_WIDTH, ICONS_HEIGHT, sizeof(hagl_color_t), &icon_flag);
+                            hagl_blit(display, cursor_x*20, cursor_y*20, &icon_bitmap);
                         }
                         key_b = true;
                     }
@@ -247,7 +255,7 @@ int main() {
             if(squares == mines) {
                 end = true;
                 swprintf(text, sizeof(text), L"YOU WIN");
-                hagl_put_text(display, text, 95, 120, color_lightgreen, font6x9);
+                hagl_put_text(display, text, 0, 116, color_lightgreen, font6x9);
             }
 
             // ################################################################################################################
