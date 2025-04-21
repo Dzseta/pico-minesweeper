@@ -255,7 +255,7 @@ int main() {
             if(squares == mines) {
                 end = true;
                 swprintf(text, sizeof(text), L"YOU WIN");
-                hagl_put_text(display, text, 0, 116, color_lightgreen, font6x9);
+                hagl_put_text(display, text, 93, 0, color_lightgreen, font6x9);
             }
 
             // ################################################################################################################
